@@ -5,6 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "game.h"
+
 const char* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
 "void main()\n"
@@ -47,7 +49,7 @@ int main()
 	glViewport(0, 0, 1000, 600);
 
 	// background color ffbbc3
-	glClearColor(1.0f, 0.73f, 0.76f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glfwSwapBuffers(window);
 
@@ -115,12 +117,20 @@ int main()
 	// Bind both the VBO and VAO to 0 so that we don't accidentally modify the VAO and VBO we created
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+	Player player1(true, PlayerSide::LEFT, "Player 1", glm::vec3(1.0f, 1.0f, 1.0f));
+	Player player2(true, PlayerSide::RIGHT, "Player 2", glm::vec3(1.0f, 1.0f, 1.0f));
 
+	Game game(player1, player2);
+
+	// Handles key presses
+	glfwSetKeyCallback(window, game.getKeyCallback);
+	glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
 
 
 	// Main Loop
 	while (!glfwWindowShouldClose(window))
 	{
+		game.MainLoop();
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use

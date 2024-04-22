@@ -1,28 +1,26 @@
-#ifndef GAME_H
-#define GAME_H
-
-#include <glad/glad.h>
+#pragma once
+#include <iostream>
 #include <GLFW/glfw3.h>
-
-enum GameState {
-    GAME_ACTIVE,
-    GAME_MENU,
-    GAME_WIN
-};
-
-
+#include "player.h"
+#include "ball.h"
 class Game
 {
+
 public:
-    GameState               State;
-    bool                    Keys[1024];
-    unsigned int            Width, Height;
-    Game(unsigned int width, unsigned int height);
-    ~Game();
-    void Init();
-    void ProcessInput(float dt);
-    void Update(float dt);
-    void Render();
+	Game(Player P1, Player P2);
+	void MainLoop();
+
+	static void getKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static bool getKey(int keyI);
+
+protected:
+	Ball ball;
+	Player Player1;
+	Player Player2;
+
+private:
+	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static bool keys[4]; //{W, S, UP, DOWN}
+
 };
 
-#endif
