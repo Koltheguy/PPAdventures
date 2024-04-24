@@ -1,4 +1,5 @@
 #pragma once
+#include <glad/glad.h>
 class Ball
 {
 public:
@@ -6,5 +7,6 @@ public:
 	float location[2];
 	float velocity[2];
 	void update();
+	void render();
 };
 

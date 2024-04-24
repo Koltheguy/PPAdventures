@@ -6,6 +6,7 @@
 bool Game::keys[4] = { 0, 0, 0 ,0 };
 
 void Game::MainLoop() {
+	ball.render();
 	// handle inputs
 	if (Player1.isUser)
 		Player1.handleKeyPress(keys[0], keys[1]);

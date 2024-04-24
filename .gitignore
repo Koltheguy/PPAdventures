@@ -432,3 +432,4 @@ FodyWeavers.xsd
 
 BasicOpenGLProject.exe.recipe
 BasicOpenGLProject.log
+/Libraries/include/glm/out/build/x64-Debug
