@@ -7,6 +7,6 @@ public:
 	float location[2];
 	float velocity[2];
 	void update();
-	void render();
+	GLuint render(GLFWwindow* window);
 };
 
