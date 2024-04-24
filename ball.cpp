@@ -10,8 +10,8 @@
 Ball::Ball() {
 	location[0] = 0.0f;
 	location[1] = 0.0f;
-	velocity[0] = 1.24356f;
-	velocity[1] = -1.213456f;
+	velocity[0] = 0.00010f;
+	velocity[1] = -0.00020f;
 }
 
 void Ball::update() {
@@ -25,7 +25,7 @@ void Ball::update() {
 		velocity[1] = -velocity[1];
 }
 
-void Ball::render() {
+GLuint Ball::render(GLFWwindow* window) {
 	const char* vertexShaderSourceBall = "#version 330 core\n"  // Vertex for ball
 		"layout (location = 0) in vec3 aPos;\n"
 		"void main()\n"
@@ -61,48 +61,5 @@ void Ball::render() {
 	glDeleteShader(vertexShaderBall);
 	glDeleteShader(fragmentShaderBall);
 
-	// Here is the vertex coordinates so we can dictate the shape of the ball
-	GLfloat ballVertices[360 * 3]; // this is what makes it a circle
-	const float radius = 0.025f;
-	for (int i = 0; i < 360; i++) {
-		float radians = glm::radians(static_cast<float>(i));
-		ballVertices[i * 3] = cos(radians) * radius;
-		ballVertices[i * 3 + 1] = sin(radians) * radius * (1000.0f / 600.0f);
-		ballVertices[i * 3 + 2] = 0.0f;
-	}
-
-	// Create reference containers for the array and buffers objects for the vertex
-	GLuint ballVAO, ballVBO;
-
-	// Generate the ballVAO and ballVBO with only 1 object each for the ball
-	glGenVertexArrays(1, &ballVAO);
-	glGenBuffers(1, &ballVBO);
-
-	// Make the ballVAO the current vertext array object by binding it
-	glBindVertexArray(ballVAO);
-
-	// Binding the ballVBO and telling the computer it's a GL_ARRAY_BUFFER
-	glBindBuffer(GL_ARRAY_BUFFER, ballVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(ballVertices), ballVertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-
-	// Use the shader program
-	glUseProgram(shaderProgramBall);
-
-	// Bind the ballVAO
-	glBindVertexArray(ballVAO);
-
-	// Draw the ball
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 360);
-
-	// Unbind the ballVAO
-	glBindVertexArray(0);
-
-	// Unuse the shader program
-	glfwPollEvents();
+	return shaderProgramBall;
 }
