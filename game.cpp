@@ -5,8 +5,7 @@
 
 bool Game::keys[4] = { 0, 0, 0 ,0 };
 
-void Game::MainLoop() {
-	ball.render();
+void Game::MainLoop(GLFWwindow* window) {
 	// handle inputs
 	if (Player1.isUser)
 		Player1.handleKeyPress(keys[0], keys[1]);
@@ -14,7 +13,7 @@ void Game::MainLoop() {
 		Player2.handleKeyPress(keys[2], keys[3]);
 	Player1.update();
 	Player2.update();
-	ball.update();
+	ball.update(); // Note that the data from this function call is only used within the scope of this function and not actually used in the main render loop in main.cpp
 	std::cout << Player1.location << " " <<
 		Player2.location << " " <<
 		ball.location[0] << "," << ball.location[1] <<

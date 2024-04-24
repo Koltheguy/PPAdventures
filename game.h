@@ -9,7 +9,7 @@ class Game
 
 public:
 	Game(Player P1, Player P2);
-	void MainLoop();
+	void MainLoop(GLFWwindow* window);
 
 	static void getKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static bool getKey(int keyI);
