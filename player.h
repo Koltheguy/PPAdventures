@@ -16,13 +16,13 @@ enum PlayerSide {
 class Player
 {
 public:
-	Player(bool isUser, PlayerSide playerSide, std::string name, glm::vec3 color);
+	Player(std::string playerType, PlayerSide playerSide, std::string name, glm::vec3 color);
 
 	bool isUser;
 	PlayerSide playerSide;
 	std::string name;
 	glm::vec3 color;
-	Direction direction;
+	Direction moveDirection;
 	float location;
 
 	void handleKeyPress(bool isUp, bool isDown);

@@ -2,24 +2,25 @@
 #include <iostream>
 #include <glm/glm.hpp>
 
-Player::Player(bool isUser, PlayerSide playerSide, std::string name, glm::vec3 color)
-	: isUser(isUser), playerSide(playerSide), name(name), color(color)
+Player::Player(std::string PlayerType, PlayerSide playerSide, std::string name, glm::vec3 color)
+	: playerSide(playerSide), name(name), color(color)
 {
+	isUser = PlayerType == "User";
 	location = 0.0f;
-	direction = Direction::NONE;
+	moveDirection = Direction::NONE;
 }
 
 void Player::handleKeyPress(bool isUp, bool isDown) {
 	if (isUp && !isDown)
-		direction = Direction::UP;
+		moveDirection = Direction::UP;
 	else if (isDown && !isUp)
-		direction = Direction::DOWN;
+		moveDirection = Direction::DOWN;
 	else
-		direction = Direction::NONE;
+		moveDirection = Direction::NONE;
 }
 
 void Player::update() {
-	switch (direction) {
+	switch (moveDirection) {
 	case Direction::UP:
 		location += 0.1f;
 		break;

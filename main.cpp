@@ -88,10 +88,7 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
-	Player player1(true, PlayerSide::LEFT, "Player 1", glm::vec3(1.0f, 1.0f, 1.0f));
-	Player player2(true, PlayerSide::RIGHT, "Player 2", glm::vec3(1.0f, 1.0f, 1.0f));
-
-	Game game(player1, player2);
+	Game game("User", "User");
 
 	// Handles key presses
 	glfwSetKeyCallback(window, game.getKeyCallback);
@@ -101,7 +98,7 @@ int main()
 	// Main Loop
 	while (!glfwWindowShouldClose(window))
 	{
-		game.MainLoop(window);
+		game.MainLoop();
 
 		ball.update(); // Moved update call here cause the location data was out of the scope of where I render the ball (which is this loop)
 

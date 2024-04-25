@@ -5,7 +5,7 @@
 
 bool Game::keys[4] = { 0, 0, 0 ,0 };
 
-void Game::MainLoop(GLFWwindow* window) {
+void Game::MainLoop() {
 	// handle inputs
 	if (Player1.isUser)
 		Player1.handleKeyPress(keys[0], keys[1]);
@@ -13,22 +13,24 @@ void Game::MainLoop(GLFWwindow* window) {
 		Player2.handleKeyPress(keys[2], keys[3]);
 	Player1.update();
 	Player2.update();
-	ball.update(); // Note that the data from this function call is only used within the scope of this function and not actually used in the main render loop in main.cpp
+	ball.update();
 	std::cout << Player1.location << " " <<
 		Player2.location << " " <<
 		ball.location[0] << "," << ball.location[1] <<
 		std::endl;
 }
 
-Game::Game(Player P1, Player P2) : Player1(P1), Player2(P2) {
-	Game::keys[0] = 0; //W
-	Game::keys[1] = 0; //S
-	Game::keys[2] = 0; //UP
-	Game::keys[3] = 0; //DOWN
+Game::Game(std::string player1Type, std::string player2Type) 
+	: Player1(player1Type, PlayerSide::LEFT, "Player 1", glm::vec3(1.0f)), Player2(player2Type, PlayerSide::RIGHT, "Player 2", glm::vec3(1.0f))
+{
+	keys[0] = 0; //W
+	keys[1] = 0; //S
+	keys[2] = 0; //UP
+	keys[3] = 0; //DOWN
 };
 
 bool Game::getKey(int keyI) {
-	return Game::keys[keyI];
+	return keys[keyI];
 }
 
 void Game::getKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -41,17 +43,17 @@ void Game::keyCallback(GLFWwindow* window, int key, int scancode, int action, in
 	if (action == GLFW_PRESS || action == GLFW_RELEASE)
 		switch (key) {
 		case GLFW_KEY_W:
-			Game::keys[0] = action;
+			keys[0] = action;
 			break;
 		case GLFW_KEY_S:
-			Game::keys[1] = action;
+			keys[1] = action;
 			break;
 
 		case GLFW_KEY_UP:
-			Game::keys[2] = action;
+			keys[2] = action;
 			break;
 		case GLFW_KEY_DOWN:
-			Game::keys[3] = action;
+			keys[3] = action;
 			break;
 
 		case GLFW_KEY_UNKNOWN:
