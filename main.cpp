@@ -115,40 +115,6 @@ int main()
 	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//glBindVertexArray(0);
 
-
-
-	Ball ball; // Initialize Ball object
-
-	// Here is the vertex coordinates so we can dictate the shape of the ball
-	GLfloat ballVertices[360 * 3]; // this is what makes it a circle
-	const float radius = 0.025f;
-	for (int i = 0; i < 360; i++) {
-		float radians = glm::radians(static_cast<float>(i));
-		ballVertices[i * 3] = cos(radians) * radius;
-		ballVertices[i * 3 + 1] = sin(radians) * radius * (1000.0f / 600.0f);
-		ballVertices[i * 3 + 2] = 0.0f;
-	}
-
-	// Create reference containers for the array and buffers objects for the vertex
-	GLuint ballVAO, ballVBO;
-
-	// Generate the ballVAO and ballVBO with only 1 object each for the ball
-	glGenVertexArrays(1, &ballVAO);
-	glGenBuffers(1, &ballVBO);
-
-	// Make the ballVAO the current vertext array object by binding it
-	glBindVertexArray(ballVAO);
-
-	// Binding the ballVBO and telling the computer it's a GL_ARRAY_BUFFER
-	glBindBuffer(GL_ARRAY_BUFFER, ballVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(ballVertices), ballVertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-
 	Game game("User", "User");
 
 	// Handles key presses
@@ -161,26 +127,11 @@ int main()
 	{
 		game.MainLoop();
 
-		ball.update(); // Moved update call here cause the location data was out of the scope of where I render the ball (which is this loop)
-
-		// This will update the new vertices of the ball to match the changing location
-		for (int i = 0; i < 360; i++) {
-			float radians = glm::radians(static_cast<float>(i));
-			ballVertices[i * 3] = cos(radians) * radius + ball.location[0];
-			ballVertices[i * 3 + 1] = sin(radians) * radius * (1000.0f / 600.0f) + ball.location[1];
-			ballVertices[i * 3 + 2] = 0.0f;
-		}
-
-		glBindBuffer(GL_ARRAY_BUFFER, ballVBO);
-
-		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(ballVertices), ballVertices); // Update buffer with new data
-
+		
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
 		glUseProgram(shaderProgram);
-		// Bind the VAO so OpenGL knows to use it
-		glBindVertexArray(ballVAO);
 
 		// Draw the ball using the GL_TRIANGLES_FAN primitive
 		glDrawArrays(GL_TRIANGLE_FAN, 0, 360);
