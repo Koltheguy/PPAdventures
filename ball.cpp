@@ -25,41 +25,6 @@ void Ball::update() {
 		velocity[1] = -velocity[1];
 }
 
-GLuint Ball::render(GLFWwindow* window) {
-	const char* vertexShaderSourceBall = "#version 330 core\n"  // Vertex for ball
-		"layout (location = 0) in vec3 aPos;\n"
-		"void main()\n"
-		"{\n"
-		"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-		"}\0";
-	const char* fragmentShaderSourceBall = "#version 330 core\n" // fragment for ball
-		"out vec4 FragColor;\n"
-		"void main()\n"
-		"{\n"
-		"   FragColor = vec4(0.0f, 0.0f, 1.0f, 1.0f);\n"
-		"}\n\0";
+void Ball::render() {
 
-	// Create Vertex Shader object for the ball
-	GLuint vertexShaderBall = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShaderBall, 1, &vertexShaderSourceBall, NULL);
-	glCompileShader(vertexShaderBall);
-
-	// Create Fragment Shader object for the ball
-	GLuint fragmentShaderBall = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShaderBall, 1, &fragmentShaderSourceBall, NULL);
-	glCompileShader(fragmentShaderBall);
-
-	// Create the shader program object for the ball and get its reference
-	GLuint shaderProgramBall = glCreateProgram();
-	glAttachShader(shaderProgramBall, vertexShaderBall);
-	glAttachShader(shaderProgramBall, fragmentShaderBall);
-
-	// Link the shaders into the shader program
-	glLinkProgram(shaderProgramBall);
-
-	// We don't need the vertex and fragment shader objects so delete em
-	glDeleteShader(vertexShaderBall);
-	glDeleteShader(fragmentShaderBall);
-
-	return shaderProgramBall;
 }
