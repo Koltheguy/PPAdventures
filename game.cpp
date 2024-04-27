@@ -5,6 +5,18 @@
 
 bool Game::keys[4] = { 0, 0, 0 ,0 };
 
+Game::Game(std::string player1Type, std::string player2Type)
+	: Player1(player1Type, PlayerSide::LEFT, "Player 1", glm::vec3(1.0f)), Player2(player2Type, PlayerSide::RIGHT, "Player 2", glm::vec3(1.0f))
+{
+	score[0] = 0;
+	score[1] = 0;
+
+	keys[0] = 0; //W
+	keys[1] = 0; //S
+	keys[2] = 0; //UP
+	keys[3] = 0; //DOWN
+};
+
 void Game::MainLoop() {
 	// handle inputs
 	if (Player1.isUser)
@@ -14,20 +26,37 @@ void Game::MainLoop() {
 	Player1.update();
 	Player2.update();
 	ball.update();
+
+	if (ball.location[0] < -1.01f) {
+		reset(PlayerSide::RIGHT);
+	} else if (ball.location[0] > 1.01f) {
+		reset(PlayerSide::LEFT);
+	}
+
 	std::cout << Player1.location << " " <<
 		Player2.location << " " <<
 		ball.location[0] << "," << ball.location[1] <<
 		std::endl;
 }
 
-Game::Game(std::string player1Type, std::string player2Type) 
-	: Player1(player1Type, PlayerSide::LEFT, "Player 1", glm::vec3(1.0f)), Player2(player2Type, PlayerSide::RIGHT, "Player 2", glm::vec3(1.0f))
-{
-	keys[0] = 0; //W
-	keys[1] = 0; //S
-	keys[2] = 0; //UP
-	keys[3] = 0; //DOWN
-};
+void Game::reset(PlayerSide sideWon) {
+	Player1.location = 0.0f;
+	Player2.location = 0.0f;
+	ball.location[0] = 0.0f;
+	ball.location[1] = 0.0f;
+	ball.velocity[0] = 0.0f;
+	ball.velocity[1] = 0.0f;
+	switch (sideWon) {
+	case PlayerSide::RIGHT:
+		score[1]++;
+		ball.velocity[0] = -BALL_SPEED;
+		break;
+	case PlayerSide::LEFT:
+		score[0]++;
+		ball.velocity[0] = BALL_SPEED;
+		break;
+	}
+}
 
 bool Game::getKey(int keyI) {
 	return keys[keyI];

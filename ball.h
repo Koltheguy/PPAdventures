@@ -1,5 +1,9 @@
 #pragma once
 #include <glad/glad.h>
+
+static const float BALL_SPEED = 0.015f;
+static const float BALL_SPEED_DELTA = 0.0005f;
+
 class Ball
 {
 public:

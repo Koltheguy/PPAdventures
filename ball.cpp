@@ -10,8 +10,8 @@
 Ball::Ball() {
 	location[0] = 0.0f;
 	location[1] = 0.0f;
-	velocity[0] = 0.045010f;
-	velocity[1] = -0.03020f;
+	velocity[0] = BALL_SPEED;
+	velocity[1] = 0.0f;
 
 	// Here is the vertex coordinates so we can dictate the shape of the ball
 	for (int i = 0; i < 360; i++) {
@@ -44,8 +44,6 @@ void Ball::update() {
 	location[1] += velocity[1];
 
 	//edge detection
-	if (location[0] > 1 || location[0] < -1)
-		velocity[0] = -velocity[0];
 	if (location[1] > 1 || location[1] < -1)
 		velocity[1] = -velocity[1];
 
