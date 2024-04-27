@@ -94,6 +94,10 @@ void Game::keyCallback(GLFWwindow* window, int key, int scancode, int action, in
 			keys[3] = action;
 			break;
 
+		case GLFW_KEY_ESCAPE:
+			glfwSetWindowShouldClose(window, 1);
+			break;
+
 		case GLFW_KEY_UNKNOWN:
 		default:
 			std::cout << "Unknown Key Pressed" << std::endl;
