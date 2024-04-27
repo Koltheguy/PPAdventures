@@ -125,7 +125,6 @@ int main()
 	// Main Loop
 	while (!glfwWindowShouldClose(window))
 	{
-		game.MainLoop();
 
 		
 		// Clean the back buffer and assign the new color to it
@@ -134,7 +133,13 @@ int main()
 		glUseProgram(shaderProgram);
 
 		// Draw the ball using the GL_TRIANGLES_FAN primitive
-		glDrawArrays(GL_TRIANGLE_FAN, 0, 360);
+		//glDrawArrays(GL_TRIANGLE_FAN, 0, 360);
+
+
+		//glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
+
+		game.MainLoop();
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events

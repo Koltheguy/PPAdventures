@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "player.h"
 
 #include "ball.h"
 
@@ -42,10 +43,19 @@ Ball::Ball() {
 void Ball::update() {
 	location[0] += velocity[0];
 	location[1] += velocity[1];
-
+	GLfloat* rectVertices1 = player1->getRectVertices();
+	GLfloat* rectVertices2 = player2->getRectVertices();
 	//edge detection
 	if (location[1] > 1 || location[1] < -1)
 		velocity[1] = -velocity[1];
+
+	//pong dection
+	if ( (location[0] < rectVertices1[3] && location[1] < rectVertices1[1] && location[1] > rectVertices1[10]) ||
+		(location[0] > rectVertices2[3] && location[1] < rectVertices2[1] && location[1] > rectVertices2[10])) {
+		velocity[0] = -velocity[0];
+	}
+	
+	//std::cout << rectVertices2[3] << "\n";
 
 	render();
 }
@@ -65,4 +75,9 @@ void Ball::render() {
 
 	// Bind the VAO so OpenGL knows to use it
 	glBindVertexArray(ballVAO);
+
+	// Draw the ball using the GL_TRIANGLE_FAN primitive
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 360);
 }
+
+

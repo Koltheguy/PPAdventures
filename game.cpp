@@ -25,6 +25,8 @@ void Game::MainLoop() {
 		Player2.handleKeyPress(keys[2], keys[3]);
 	Player1.update();
 	Player2.update();
+	ball.setPlayer1(&Player1);
+	ball.setPlayer2(&Player2);
 	ball.update();
 
 	if (ball.location[0] < -1.01f) {
