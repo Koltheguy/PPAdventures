@@ -15,12 +15,7 @@ Ball::Ball() {
 	velocity[1] = 0.0f;
 
 	// Here is the vertex coordinates so we can dictate the shape of the ball
-	for (int i = 0; i < 360; i++) {
-		float radians = glm::radians(static_cast<float>(i));
-		ballVertices[i * 3] = cos(radians) * radius;
-		ballVertices[i * 3 + 1] = sin(radians) * radius * (1000.0f / 600.0f);
-		ballVertices[i * 3 + 2] = 0.0f;
-	}
+	draw();
 
 	// Generate the ballVAO and ballVBO with only 1 object each for the ball
 	glGenVertexArrays(1, &ballVAO);
@@ -43,31 +38,50 @@ Ball::Ball() {
 void Ball::update() {
 	location[0] += velocity[0];
 	location[1] += velocity[1];
-	GLfloat* rectVertices1 = player1->getRectVertices();
-	GLfloat* rectVertices2 = player2->getRectVertices();
 	//edge detection
 	if (location[1] > 1 || location[1] < -1)
 		velocity[1] = -velocity[1];
 
-	//pong dection
-	if ( (location[0] < rectVertices1[3] && location[1] < rectVertices1[1] && location[1] > rectVertices1[10]) ||
-		(location[0] > rectVertices2[3] && location[1] < rectVertices2[1] && location[1] > rectVertices2[10])) {
-		velocity[0] = -velocity[0];
+	if ((location[0] - radius < -PLAYER_DISTANCE && location[0] > -PLAYER_DISTANCE - Player1->width) // x-pos
+		&& (location[1] - radius < Player1->location + Player1->length && location[1] + radius > Player1->location - Player1->length) // y-pos
+	) {
+		calcVelocity(Player1);
+		location[0] = -PLAYER_DISTANCE + radius;
+	} else if ((location[0] + radius > PLAYER_DISTANCE && location[0] < PLAYER_DISTANCE + Player2->width) // x-pos
+		&& (location[1] - radius < Player2->location + Player2->length && location[1] + radius > Player2->location - Player2->length) // y-pos
+	) {
+		calcVelocity(Player2);
+		location[0] = PLAYER_DISTANCE - radius;
 	}
-	
-	//std::cout << rectVertices2[3] << "\n";
 
 	render();
 }
 
+void Ball::calcVelocity(Player* player) {
+
+	float speed = sqrt(velocity[0] * velocity[0] + velocity[1] * velocity[1]) + BALL_SPEED_DELTA;
+
+	float yDelta = location[1] - player->location;
+	float bounceAngle = (yDelta / player->length) * BALL_MAX_BOUNCE;
+
+	// convert to coords
+	velocity[0] = -velocity[0] + BALL_SPEED_DELTA;
+	velocity[1] = speed * sin(bounceAngle);
+
+	if (velocity[0] > 0.05f)
+		velocity[0] = 0.05f;
+	else if (velocity[0] < -0.05f)
+		velocity[0] = -0.05f;
+
+	if (velocity[1] > 0.05f)
+		velocity[1] = 0.05f;
+	else if (velocity[1] < -0.05f)
+		velocity[1] = -0.05f;
+}
+
 void Ball::render() {
 	// This will update the new vertices of the ball to match the changing location
-	for (int i = 0; i < 360; i++) {
-		float radians = glm::radians(static_cast<float>(i));
-		ballVertices[i * 3] = cos(radians) * radius + location[0];
-		ballVertices[i * 3 + 1] = sin(radians) * radius * (1000.0f / 600.0f) + location[1];
-		ballVertices[i * 3 + 2] = 0.0f;
-	}
+	draw();
 
 	glBindBuffer(GL_ARRAY_BUFFER, ballVBO);
 
@@ -78,6 +92,15 @@ void Ball::render() {
 
 	// Draw the ball using the GL_TRIANGLE_FAN primitive
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 360);
+}
+
+void Ball::draw() {
+	for (int i = 0; i < 360; i++) {
+		float radians = glm::radians(static_cast<float>(i));
+		ballVertices[i * 3] = cos(radians) * radius + location[0];
+		ballVertices[i * 3 + 1] = sin(radians) * radius * (1000.0f / 600.0f) + location[1];
+		ballVertices[i * 3 + 2] = 0.0f;
+	}
 }
 
 

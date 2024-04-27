@@ -3,6 +3,7 @@
 
 static const float BALL_SPEED = 0.015f;
 static const float BALL_SPEED_DELTA = 0.0005f;
+static const float BALL_MAX_BOUNCE = 0.785398f; // 45 deg
 
 class Ball
 {
@@ -13,14 +14,17 @@ public:
 	GLuint ballVAO, ballVBO;
 	const float radius = 0.025f;
 	float location[2];
-	void setPlayer1(Player* p) { player1 = p; }
-	void setPlayer2(Player* p) { player2 = p; }
+	void setPlayer1(Player* p) { Player1 = p; }
+	void setPlayer2(Player* p) { Player2 = p; }
 
 	float velocity[2];
+	void calcVelocity(Player* player);
+
 	void update();
 	void render();
+	void draw();
 
 private:
-	Player* player1;
-	Player* player2;
+	Player* Player1;
+	Player* Player2;
 };

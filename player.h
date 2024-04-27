@@ -2,6 +2,10 @@
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glad/glad.h>
+
+static const float PLAYER_DISTANCE = 0.9f;
+static const float PLAYER_SPEED = 0.015f;
+
 enum Direction {
 	NONE,
 	UP,
@@ -23,9 +27,8 @@ public:
 
 	PlayerSide playerSide;
 	
-	float width_l;
-	float width_r;
-	float legnth;
+	float width;
+	float length;
 	//rectVertices - has 4 vertices each with x,y,z coordinates
 	GLfloat rectVertices[4 * 3];
 
@@ -34,10 +37,10 @@ public:
 	Direction moveDirection;
 	float location;
 
-	GLfloat* getRectVertices() { return rectVertices; }
 	void handleKeyPress(bool isUp, bool isDown);
-	void render();
 	virtual void update();
+	void draw();
+	void render();
 };
 
 
