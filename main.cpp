@@ -115,7 +115,7 @@ int main()
 	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//glBindVertexArray(0);
 
-	Game game("User", "User");
+	Game game("User", "SimpleAI");
 
 	// Handles key presses
 	glfwSetKeyCallback(window, game.getKeyCallback);

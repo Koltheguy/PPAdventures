@@ -30,6 +30,9 @@
     <ClCompile Include="ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="simpleAi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -39,6 +42,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="simpleAi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="playerFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

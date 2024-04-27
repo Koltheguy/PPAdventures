@@ -4,8 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
 #include "player.h"
+#include "ball.h"
 
 Player::Player(std::string playerType, PlayerSide playerSide, std::string name, glm::vec3 color)
 	: playerSide(playerSide), name(name), color(color)
@@ -49,11 +49,15 @@ void Player::update() {
 	case Direction::UP:
 		if (location + PLAYER_SPEED < 1.0f) {
 			location += PLAYER_SPEED;
+			if (location + length > 1.0f)
+				location = 1.0f - length;
 		}
 		break;
 	case Direction::DOWN:
 		if (location - PLAYER_SPEED > -1.0f) {
 			location -= PLAYER_SPEED;
+			if (location - length < -1.0f)
+				location = -1.0f + length;
 		}
 		break;
 	}

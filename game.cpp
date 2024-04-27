@@ -1,13 +1,21 @@
 #include "game.h"
 #include <iostream>
 #include <GLFW/glfw3.h>
+#include "playerFactory.h"
 #include "player.h"
+#include "simpleAi.h"
 
 bool Game::keys[4] = { 0, 0, 0 ,0 };
 
 Game::Game(std::string player1Type, std::string player2Type)
-	: Player1(player1Type, PlayerSide::LEFT, "Player 1", glm::vec3(1.0f)), Player2(player2Type, PlayerSide::RIGHT, "Player 2", glm::vec3(1.0f))
+	: Player1(PlayerFactory::createPlayer(player1Type, PlayerSide::LEFT, "Player 1", glm::vec3(1.0f))), 
+	Player2(PlayerFactory::createPlayer(player2Type, PlayerSide::RIGHT, "Player 2", glm::vec3(1.0f)))
 {
+	ball.setPlayer1(Player1);
+	ball.setPlayer2(Player2);
+	Player1->setBall(&ball);
+	Player2->setBall(&ball);
+
 	score[0] = 0;
 	score[1] = 0;
 
@@ -19,14 +27,13 @@ Game::Game(std::string player1Type, std::string player2Type)
 
 void Game::MainLoop() {
 	// handle inputs
-	if (Player1.isUser)
-		Player1.handleKeyPress(keys[0], keys[1]);
-	if (Player2.isUser)
-		Player2.handleKeyPress(keys[2], keys[3]);
-	Player1.update();
-	Player2.update();
-	ball.setPlayer1(&Player1);
-	ball.setPlayer2(&Player2);
+	if (Player1->isUser)
+		Player1->handleKeyPress(keys[0], keys[1]);
+	if (Player2->isUser)
+		Player2->handleKeyPress(keys[2], keys[3]);
+
+	Player1->update();
+	Player2->update();
 	ball.update();
 
 	if (ball.location[0] < -1.01f) {
@@ -35,15 +42,15 @@ void Game::MainLoop() {
 		reset(PlayerSide::LEFT);
 	}
 
-	std::cout << Player1.location << " " <<
-		Player2.location << " " <<
+	std::cout << Player1->location << " " <<
+		Player2->location << " " <<
 		ball.location[0] << "," << ball.location[1] <<
 		std::endl;
 }
 
 void Game::reset(PlayerSide sideWon) {
-	Player1.location = 0.0f;
-	Player2.location = 0.0f;
+	Player1->location = 0.0f;
+	Player2->location = 0.0f;
 	ball.location[0] = 0.0f;
 	ball.location[1] = 0.0f;
 	ball.velocity[0] = 0.0f;
