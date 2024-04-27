@@ -13,10 +13,12 @@ Player::Player(std::string PlayerType, PlayerSide playerSide, std::string name, 
 	isUser = PlayerType == "User";
 	location = 0.0f;
 	moveDirection = Direction::NONE;
-
+	width_l = 0.9;
+	width_r = 0.85;
+	legnth = -0.1;
 	for (int i = 0; i < 4; i++) {
-		rectVertices[i * 3] = (i == 0 || i == 3) ? -0.9f * (-1 * playerSide) : -0.85f * (-1 * playerSide); // x-coordinate
-		rectVertices[i * 3 + 1] = (i < 2) ? -0.2f + location : 0.2f + location;          // y-coordinate
+		rectVertices[i * 3] = (i == 0 || i == 3) ? -width_l * (-1 * playerSide) : -width_r * (-1 * playerSide); // x-coordinate
+		rectVertices[i * 3 + 1] = (i < 2) ? -legnth + location : legnth + location;          // y-coordinate
 		rectVertices[i * 3 + 2] = 0.0f;                            // z-coordinate
 	}
 
@@ -51,12 +53,17 @@ void Player::handleKeyPress(bool isUp, bool isDown) {
 void Player::update() {
 	switch (moveDirection) {
 	case Direction::UP:
-		location += 0.01f;
+		if (location + 0.1f < 1.0f) {
+			location += 0.01f;
+		}
 		break;
 	case Direction::DOWN:
-		location -= 0.01f;
+		if (location - 0.1f > -1.0f) { 
+			location -= 0.01f;
+		}
 		break;
 	}
+
 	render();
 }
 
@@ -65,8 +72,8 @@ void Player::render() {
 	//1000 - 600 //  (i == 0 || i == 3) ? -0.1f : 0.1f;
 
 	for (int i = 0; i < 4; i++) {
-		rectVertices[i * 3] = (i == 0 || i == 3) ?  -0.9f * (-1 * playerSide) : -0.85f * (-1 * playerSide); // x-coordinate
-		rectVertices[i * 3 + 1] = (i < 2) ? -0.2f + location : 0.2f + location;          // y-coordinate
+		rectVertices[i * 3] = (i == 0 || i == 3) ? -width_l * (-1 * playerSide) : -width_r * (-1 * playerSide); // x-coordinate
+		rectVertices[i * 3 + 1] = (i < 2) ? -legnth + location : legnth + location;          // y-coordinate
 		rectVertices[i * 3 + 2] = 0.0f;                            // z-coordinate
 	}
 

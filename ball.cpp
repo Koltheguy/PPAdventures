@@ -4,14 +4,15 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "player.h"
 
 #include "ball.h"
 
 Ball::Ball() {
-	location[0] = 0.0f;
-	location[1] = 0.0f;
-	velocity[0] = 0.045010f;
-	velocity[1] = -0.03020f;
+	location[0] = 0.0f; //x-axis
+	location[1] = 0.0f; //y-axis
+	velocity[0] = 0.003010f;
+	velocity[1] = -0.00320f;
 
 	// Here is the vertex coordinates so we can dictate the shape of the ball
 	for (int i = 0; i < 360; i++) {
@@ -42,14 +43,22 @@ Ball::Ball() {
 void Ball::update() {
 	location[0] += velocity[0];
 	location[1] += velocity[1];
-
+	GLfloat* rectVertices1 = player1->getRectVertices();
+	GLfloat* rectVertices2 = player2->getRectVertices();
 	//edge detection
 	if (location[0] > 1 || location[0] < -1)
 		velocity[0] = -velocity[0];
 	if (location[1] > 1 || location[1] < -1)
 		velocity[1] = -velocity[1];
+
 	//pong dection
-	//if()
+	if ( (location[0] < rectVertices1[3] && location[1] < rectVertices1[1] && location[1] > rectVertices1[10]) ||
+		(location[0] > rectVertices2[3] && location[1] < rectVertices2[1] && location[1] > rectVertices2[10])) {
+		velocity[0] = -velocity[0];
+	}
+	
+	//std::cout << rectVertices2[3] << "\n";
+
 	render();
 }
 
@@ -72,3 +81,5 @@ void Ball::render() {
 	// Draw the ball using the GL_TRIANGLE_FAN primitive
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 360);
 }
+
+

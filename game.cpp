@@ -13,6 +13,8 @@ void Game::MainLoop() {
 		Player2.handleKeyPress(keys[2], keys[3]);
 	Player1.update();
 	Player2.update();
+	ball.setPlayer1(&Player1);
+	ball.setPlayer2(&Player2);
 	ball.update();
 	std::cout << Player1.location << " " <<
 		Player2.location << " " <<
@@ -20,7 +22,7 @@ void Game::MainLoop() {
 		std::endl;
 }
 
-Game::Game(std::string player1Type, std::string player2Type) 
+Game::Game(std::string player1Type, std::string player2Type)
 	: Player1(player1Type, PlayerSide::LEFT, "Player 1", glm::vec3(1.0f)), Player2(player2Type, PlayerSide::RIGHT, "Player 2", glm::vec3(1.0f))
 {
 	keys[0] = 0; //W

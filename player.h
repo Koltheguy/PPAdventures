@@ -23,8 +23,9 @@ public:
 
 	PlayerSide playerSide;
 	
-	//float width = 25.0f;
-	//float height = 12.5f;
+	float width_l;
+	float width_r;
+	float legnth;
 	//rectVertices - has 4 vertices each with x,y,z coordinates
 	GLfloat rectVertices[4 * 3];
 
@@ -33,6 +34,7 @@ public:
 	Direction moveDirection;
 	float location;
 
+	GLfloat* getRectVertices() { return rectVertices; }
 	void handleKeyPress(bool isUp, bool isDown);
 	void render();
 	virtual void update();
