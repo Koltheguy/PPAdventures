@@ -10,7 +10,6 @@ class Game
 public:
 	Game(std::string player1Type, std::string player2Type);
 	void MainLoop();
-	void render();
 
 	static void getKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static bool getKey(int keyI);

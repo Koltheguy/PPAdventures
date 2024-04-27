@@ -1,6 +1,11 @@
-#include "player.h"
 #include <iostream>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "player.h"
 
 Player::Player(std::string PlayerType, PlayerSide playerSide, std::string name, glm::vec3 color)
 	: playerSide(playerSide), name(name), color(color)
@@ -8,6 +13,30 @@ Player::Player(std::string PlayerType, PlayerSide playerSide, std::string name, 
 	isUser = PlayerType == "User";
 	location = 0.0f;
 	moveDirection = Direction::NONE;
+
+	for (int i = 0; i < 4; i++) {
+		rectVertices[i * 3] = (i == 0 || i == 3) ? -0.9f * (-1 * playerSide) : -0.85f * (-1 * playerSide); // x-coordinate
+		rectVertices[i * 3 + 1] = (i < 2) ? -0.2f + location : 0.2f + location;          // y-coordinate
+		rectVertices[i * 3 + 2] = 0.0f;                            // z-coordinate
+	}
+
+
+	// Generate the playerVAO and playerVBO with only 1 object each for the ball
+	glGenVertexArrays(1, &playerVAO);
+	glGenBuffers(1, &playerVBO);
+
+	// Make the playerVAO the current vertext array object by binding it
+	glBindVertexArray(playerVAO);
+
+	// Binding the playerVBO and telling the computer it's a GL_ARRAY_BUFFER
+	glBindBuffer(GL_ARRAY_BUFFER, playerVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(rectVertices), rectVertices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 
 void Player::handleKeyPress(bool isUp, bool isDown) {
@@ -22,13 +51,36 @@ void Player::handleKeyPress(bool isUp, bool isDown) {
 void Player::update() {
 	switch (moveDirection) {
 	case Direction::UP:
-		location += 0.1f;
+		location += 0.01f;
 		break;
 	case Direction::DOWN:
-		location -= 0.1f;
+		location -= 0.01f;
 		break;
 	}
+	render();
 }
+
+void Player::render() {
+
+	//1000 - 600 //  (i == 0 || i == 3) ? -0.1f : 0.1f;
+
+	for (int i = 0; i < 4; i++) {
+		rectVertices[i * 3] = (i == 0 || i == 3) ?  -0.9f * (-1 * playerSide) : -0.85f * (-1 * playerSide); // x-coordinate
+		rectVertices[i * 3 + 1] = (i < 2) ? -0.2f + location : 0.2f + location;          // y-coordinate
+		rectVertices[i * 3 + 2] = 0.0f;                            // z-coordinate
+	}
+
+	glBindBuffer(GL_ARRAY_BUFFER, playerVBO);
+
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(rectVertices), rectVertices); // Update buffer with new data
+
+	// Bind the VAO so OpenGL knows to use it
+	glBindVertexArray(playerVAO);
+
+	// Draw the player rectangle
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+}
+
 
 
 

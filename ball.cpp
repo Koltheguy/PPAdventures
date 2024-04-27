@@ -48,7 +48,8 @@ void Ball::update() {
 		velocity[0] = -velocity[0];
 	if (location[1] > 1 || location[1] < -1)
 		velocity[1] = -velocity[1];
-
+	//pong dection
+	if()
 	render();
 }
 
@@ -67,4 +68,7 @@ void Ball::render() {
 
 	// Bind the VAO so OpenGL knows to use it
 	glBindVertexArray(ballVAO);
+
+	// Draw the ball using the GL_TRIANGLE_FAN primitive
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 360);
 }
