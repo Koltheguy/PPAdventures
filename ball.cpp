@@ -49,7 +49,7 @@ void Ball::update() {
 	if (location[1] > 1 || location[1] < -1)
 		velocity[1] = -velocity[1];
 	//pong dection
-	if()
+	//if()
 	render();
 }
 
