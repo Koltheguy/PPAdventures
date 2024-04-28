@@ -56,8 +56,8 @@ void Game::MainLoop(GLFWwindow* window) {
 		Player1->handleKeyPress(keys[0], keys[1]);
 	if (Player2->isUser)
 		Player2->handleKeyPress(keys[2], keys[3]);
-	render(RIGHT, score[1]);
-	render(LEFT, score[0]);
+	/*render(RIGHT, score[1]);
+	render(LEFT, score[0]);*/
 	Player1->update();
 	Player2->update();
 	ball.update();
