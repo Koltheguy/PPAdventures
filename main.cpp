@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -25,6 +26,19 @@ void errorCallback(int error, const char* description) {
 	std::cerr << "GLFW Error " << error << ": " << description << std::endl;
 }
 
+std::string updateWindow() {
+	int player1Score = 0;
+	int player2Score = 0;
+	std::string score1 = std::to_string(player1Score);
+	std::string score2 = std::to_string(player2Score);
+	std::string name = "PPAdventures SCORE: ";
+	name += score1;
+	name += " - ";
+	name += score2;
+
+	return name;
+}
+
 int main()
 {
 	
@@ -38,7 +52,9 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(1000, 600, "PPAdventures", NULL, NULL);
+	std::string Score = updateWindow();
+
+	GLFWwindow* window = glfwCreateWindow(1000, 600, Score.c_str(), NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "GLFW window error" << std::endl;
@@ -139,8 +155,9 @@ int main()
 		//glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
 
-		game.MainLoop();
+		game.MainLoop(window);
 		// Swap the back buffer with the front buffer
+
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
 		glfwPollEvents();

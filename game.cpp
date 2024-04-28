@@ -1,5 +1,6 @@
 #include "game.h"
 #include <iostream>
+#include <string>
 #include <GLFW/glfw3.h>
 #include "playerFactory.h"
 #include "player.h"
@@ -42,7 +43,7 @@ Game::Game(std::string player1Type, std::string player2Type)
 	glBindVertexArray(0);
 };
 
-void Game::MainLoop() {
+void Game::MainLoop(GLFWwindow* window) {
 	// handle inputs
 	if (Player1->isUser)
 		Player1->handleKeyPress(keys[0], keys[1]);
@@ -53,6 +54,8 @@ void Game::MainLoop() {
 	Player1->update();
 	Player2->update();
 	ball.update();
+	windowScore = updateWindow();
+	glfwSetWindowTitle(window, windowScore.c_str());
 
 	if (ball.location[0] < -1.01f) {
 		reset(PlayerSide::RIGHT);
@@ -123,10 +126,21 @@ void Game::keyCallback(GLFWwindow* window, int key, int scancode, int action, in
 		}
 }
 
+std::string Game::updateWindow() {
+	std::string score1 = std::to_string(score[0]);
+	std::string score2 = std::to_string(score[1]);
+	std::string name = "PPAdventures SCORE: ";
+	name += score1;
+	name += " - ";
+	name += score2;
+
+	return name;
+}
+
 void Game::render(PlayerSide sideWon, int score) {
 	draw(sideWon, score);
 
-	std::cout << "Game Vertices[0] = " << gameVertices[0] << std::endl;
+	/*std::cout << "Game Vertices[0] = " << gameVertices[0] << std::endl;*/
 
 
 	glBindBuffer(GL_ARRAY_BUFFER, gameVBO);
@@ -218,13 +232,13 @@ void Game::draw(PlayerSide side, int score) {
 void Game::zeroVertices(float xspacing, float yspacing) {
 	float scaleFactor = 0.125f;
 	GLfloat Vertices[] = {
-		(-0.5f + xspacing) * scaleFactor, (0.5f + yspacing) * scaleFactor, 0.0f,
-		(-0.5f + xspacing) * scaleFactor, (-0.5f + yspacing) * scaleFactor, 0.0f,
-		(0.5f + xspacing) * scaleFactor, (-0.5f + yspacing) * scaleFactor, 0.0f,
-		(0.5f + xspacing) * scaleFactor, (0.5f + yspacing) * scaleFactor, 0.0f,
-		(-0.5f + xspacing) * scaleFactor, (0.5f + yspacing) * scaleFactor, 0.0f,
-		(0.5f + xspacing) * scaleFactor, (0.5f + yspacing) * scaleFactor, 0.0f,
-		(0.5f + xspacing) * scaleFactor, (-0.5f + yspacing) * scaleFactor, 0.0f,
+	(-0.5f + xspacing)* scaleFactor, (0.5f + yspacing)* scaleFactor, 0.0f,
+		(-0.5f + xspacing)* scaleFactor, (-0.5f + yspacing)* scaleFactor, 0.0f,
+		(0.5f + xspacing)* scaleFactor, (-0.5f + yspacing)* scaleFactor, 0.0f,
+		(0.5f + xspacing)* scaleFactor, (0.5f + yspacing)* scaleFactor, 0.0f,
+		(-0.5f + xspacing)* scaleFactor, (0.5f + yspacing)* scaleFactor, 0.0f,
+		(0.5f + xspacing)* scaleFactor, (0.5f + yspacing)* scaleFactor, 0.0f,
+		(0.5f + xspacing)* scaleFactor, (-0.5f + yspacing)* scaleFactor, 0.0f,
 	};
 	memcpy(gameVertices, Vertices, sizeof(Vertices));
 }

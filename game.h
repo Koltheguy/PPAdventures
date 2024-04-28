@@ -10,13 +10,13 @@ class Game
 
 public:
 	Game(std::string player1Type, std::string player2Type);
-	void MainLoop();
+	void MainLoop(GLFWwindow* window);
 	int score[2];
 
 	static void getKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static bool getKey(int keyI);
 	GLuint gameVAO, gameVBO;
-	GLfloat gameVertices[7 * 3];
+	GLfloat gameVertices[100];
 	void render(PlayerSide side, int score);
 	void draw(PlayerSide side, int score);
 	void zeroVertices(float xspacing, float yspacing);
@@ -29,6 +29,8 @@ public:
 	void sevenVertices(float xspacing, float yspacing);
 	void eightVertices(float xspacing, float yspacing);
 	void nineVertices(float xspacing, float yspacing);
+	std::string updateWindow();
+	std::string windowScore;
 
 
 protected:
