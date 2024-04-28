@@ -6,6 +6,8 @@
 static const float PLAYER_DISTANCE = 0.9f;
 static const float PLAYER_SPEED = 0.015f;
 
+class Ball; // Forward Declaration
+
 enum Direction {
 	NONE,
 	UP,
@@ -41,6 +43,13 @@ public:
 	virtual void update();
 	void draw();
 	void render();
+
+	void setBall(Ball* b) { ball = b; }
+
+
+protected:
+	Ball* ball;
+
 };
 
 

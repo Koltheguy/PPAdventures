@@ -5,13 +5,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "player.h"
-
 #include "ball.h"
 
 Ball::Ball() {
 	location[0] = 0.0f;
 	location[1] = 0.0f;
-	velocity[0] = BALL_SPEED;
+	velocity[0] = -BALL_SPEED;
 	velocity[1] = 0.0f;
 
 	// Here is the vertex coordinates so we can dictate the shape of the ball
@@ -39,7 +38,7 @@ void Ball::update() {
 	location[0] += velocity[0];
 	location[1] += velocity[1];
 	//edge detection
-	if (location[1] > 1 || location[1] < -1)
+	if (location[1] + radius > 1.0f || location[1] - radius < -1.0f)
 		velocity[1] = -velocity[1];
 
 	if ((location[0] - radius < -PLAYER_DISTANCE && location[0] > -PLAYER_DISTANCE - Player1->width) // x-pos

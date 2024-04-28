@@ -18,8 +18,8 @@ public:
 
 protected:
 	Ball ball;
-	Player Player1;
-	Player Player2;
+	Player* Player1;
+	Player* Player2;
 
 private:
 	void reset(PlayerSide sideWon);
