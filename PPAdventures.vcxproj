@@ -150,6 +150,7 @@
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="kolAi.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="normalAi.cpp" />
     <ClCompile Include="player.cpp" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="ball.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="kolAi.h" />
     <ClInclude Include="normalAi.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playerFactory.h" />

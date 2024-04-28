@@ -2,10 +2,6 @@
 #include "normalAi.h"
 #include "ball.h"
 
-#include <iostream>
-#include "simpleAi.h"
-#include "ball.h"
-
 void NormalAi::update() {
     if ((ball->velocity[0] > 0 && playerSide < 0) || (ball->velocity[0] < 0 && playerSide > 0)) {
         if (location + (length / 4) < 0) {

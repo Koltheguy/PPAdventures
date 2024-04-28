@@ -2,8 +2,9 @@
 #include <glad/glad.h>
 
 static const float BALL_SPEED = 0.015f;
-static const float BALL_SPEED_DELTA = 0.0005f;
-static const float BALL_MAX_BOUNCE = 0.785398f; // 45 deg
+static const float BALL_SPEED_MAX = 0.1f;
+static const float BALL_SPEED_DELTA = 0.001f;
+static const float BALL_MAX_BOUNCE = 1.309f; // 75 deg
 
 class Player; // Forward Declaration
 

@@ -67,15 +67,15 @@ void Ball::calcVelocity(Player* player) {
 	velocity[0] = -velocity[0] + BALL_SPEED_DELTA;
 	velocity[1] = speed * sin(bounceAngle);
 
-	if (velocity[0] > 0.05f)
-		velocity[0] = 0.05f;
-	else if (velocity[0] < -0.05f)
-		velocity[0] = -0.05f;
+	if (velocity[0] > BALL_SPEED_MAX)
+		velocity[0] = BALL_SPEED_MAX;
+	else if (velocity[0] < -BALL_SPEED_MAX)
+		velocity[0] = -BALL_SPEED_MAX;
 
-	if (velocity[1] > 0.05f)
-		velocity[1] = 0.05f;
-	else if (velocity[1] < -0.05f)
-		velocity[1] = -0.05f;
+	if (velocity[1] > BALL_SPEED_MAX)
+		velocity[1] = BALL_SPEED_MAX;
+	else if (velocity[1] < -BALL_SPEED_MAX)
+		velocity[1] = -BALL_SPEED_MAX;
 }
 
 void Ball::render() {
