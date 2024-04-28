@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="DonAi.cpp" />
+    <ClCompile Include="EricAI.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="kolAi.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="ball.h" />
     <ClInclude Include="DonAi.h" />
+    <ClInclude Include="EricAI.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="kolAi.h" />
     <ClInclude Include="normalAi.h" />
