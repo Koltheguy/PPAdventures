@@ -10,6 +10,7 @@ class Game
 
 public:
 	Game(std::string player1Type, std::string player2Type);
+	~Game();
 	void MainLoop(GLFWwindow* window);
 	int score[2];
 

@@ -35,6 +35,11 @@ Player::Player(std::string playerType, PlayerSide playerSide, std::string name, 
 	glBindVertexArray(0);
 }
 
+Player::~Player() {
+	glDeleteVertexArrays(1, &playerVAO);
+	glDeleteBuffers(1, &playerVBO);
+}
+
 void Player::handleKeyPress(bool isUp, bool isDown) {
 	if (isUp && !isDown)
 		moveDirection = Direction::UP;

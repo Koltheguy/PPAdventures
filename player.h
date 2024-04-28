@@ -23,7 +23,7 @@ class Player
 {
 public:
 	Player(std::string playerType, PlayerSide playerSide, std::string name, glm::vec3 color);
-
+	~Player();
 	bool isUser;
 	GLuint playerVAO, playerVBO;
 

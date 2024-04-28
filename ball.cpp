@@ -34,6 +34,11 @@ Ball::Ball() {
 	glBindVertexArray(0);
 }
 
+Ball::~Ball() {
+	glDeleteVertexArrays(1, &ballVAO);
+	glDeleteBuffers(1, &ballVBO);
+}
+
 void Ball::update() {
 	location[0] += velocity[0];
 	location[1] += velocity[1];

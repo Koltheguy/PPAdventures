@@ -45,6 +45,11 @@ Game::Game(std::string player1Type, std::string player2Type)
 	glBindVertexArray(0);
 };
 
+Game::~Game() {
+	delete Player1;
+	delete Player2;
+}
+
 void Game::MainLoop(GLFWwindow* window) {
 	// handle inputs
 	if (Player1->isUser)

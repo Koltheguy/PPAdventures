@@ -12,6 +12,7 @@ class Ball
 {
 public:
 	Ball();
+	~Ball();
 	GLfloat ballVertices[360 * 3];
 	// Create reference containers for the array and buffers objects for the vertex
 	GLuint ballVAO, ballVBO;
