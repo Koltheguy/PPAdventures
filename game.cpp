@@ -16,6 +16,8 @@ Game::Game(std::string player1Type, std::string player2Type)
 	ball.setPlayer2(Player2);
 	Player1->setBall(&ball);
 	Player2->setBall(&ball);
+	Player1->setOtherPlayer(Player2);
+	Player2->setOtherPlayer(Player1);
 
 	score[0] = 0;
 	score[1] = 0;
@@ -63,10 +65,10 @@ void Game::MainLoop(GLFWwindow* window) {
 		reset(PlayerSide::LEFT);
 	}
 
-	std::cout << Player1->location << " " <<
-		Player2->location << " " <<
-		ball.location[0] << "," << ball.location[1] <<
-		std::endl;
+	//std::cout << Player1->location << " " <<
+	//	Player2->location << " " <<
+	//	ball.location[0] << "," << ball.location[1] <<
+	//	std::endl;
 }
 
 void Game::reset(PlayerSide sideWon) {

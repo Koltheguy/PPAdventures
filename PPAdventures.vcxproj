@@ -151,12 +151,14 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="normalAi.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="simpleAi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="normalAi.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playerFactory.h" />
     <ClInclude Include="simpleAi.h" />

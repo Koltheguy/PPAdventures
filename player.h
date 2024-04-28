@@ -4,14 +4,14 @@
 #include <glad/glad.h>
 
 static const float PLAYER_DISTANCE = 0.9f;
-static const float PLAYER_SPEED = 0.015f;
+static const float PLAYER_SPEED = 0.01f;
 
 class Ball; // Forward Declaration
 
 enum Direction {
-	NONE,
-	UP,
-	DOWN,
+	NONE = 0,
+	UP = 1,
+	DOWN = -1,
 };
 
 enum PlayerSide {
@@ -45,10 +45,12 @@ public:
 	void render();
 
 	void setBall(Ball* b) { ball = b; }
+	void setOtherPlayer(Player* p) { OtherPlayer = p; }
 
 
 protected:
 	Ball* ball;
+	Player* OtherPlayer;
 
 };
 
