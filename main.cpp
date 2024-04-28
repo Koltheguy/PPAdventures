@@ -9,6 +9,7 @@
 
 #include "game.h"
 
+
 const char* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
 "void main()\n"
@@ -71,7 +72,7 @@ int main()
 	glClear(GL_COLOR_BUFFER_BIT);
 	glfwSwapBuffers(window);
 
-	// Create Vertex Shader Object and get its reference
+	// Create Vertex Shader Object and get its freference
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	// Attach Vertex Shader source to the Vertex Shader Object
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
@@ -98,7 +99,7 @@ int main()
 	glDeleteShader(fragmentShader);
 
 
-	Game game("User", "KolAi");
+	Game game("User", "DonAi");
 
 	// Handles key presses
 	glfwSetKeyCallback(window, game.getKeyCallback);
@@ -115,13 +116,6 @@ int main()
 		// Tell OpenGL which Shader Program we want to use
 		glUseProgram(shaderProgram);
 
-		// Draw the ball using the GL_TRIANGLES_FAN primitive
-		//glDrawArrays(GL_TRIANGLE_FAN, 0, 360);
-
-
-		//glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-
-
 		game.MainLoop(window);
 		// Swap the back buffer with the front buffer
 
@@ -129,7 +123,6 @@ int main()
 		// Take care of all GLFW events
 		glfwPollEvents();
 	}
-
 
 	glfwDestroyWindow(window);
 	glfwTerminate();

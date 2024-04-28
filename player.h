@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <glad/glad.h>
 
-static const float PLAYER_DISTANCE = 0.9f;
+static const float PLAYER_DISTANCE = 0.95f;
 static const float PLAYER_SPEED = 0.01f;
 
 class Ball; // Forward Declaration
