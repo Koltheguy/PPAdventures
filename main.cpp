@@ -98,13 +98,16 @@ int main()
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 	int limit;
-	std::string player;
+	std::string player1;
+	std::string player2;
 	std::cout << "Input Limit: ";
 	std::cin >> limit;
-	std::cout << "Input Competition: ";
-	std::cin >> player;
+	std::cout << "Input player1: ";
+	std::cin >> player1;
+	std::cout << "Input player2: ";
+	std::cin >> player2;
 
-	Game game("User", player,limit);
+	Game game(player1, player2,limit);
 
 	// Handles key presses
 	glfwSetKeyCallback(window, game.getKeyCallback);

@@ -27,6 +27,7 @@ Game::Game(std::string player1Type, std::string player2Type, int Limit)
 	keys[1] = 0; //S
 	keys[2] = 0; //UP
 	keys[3] = 0; //DOWN
+	keys[4] = 0; //Enter
 
 	// Generate the playerVAO and playerVBO with only 1 object each for the ball
 	glGenVertexArrays(1, &gameVAO);
@@ -101,7 +102,7 @@ void Game::renderWin(GLFWwindow* window) {
 		std::string winner = "Player 2 Won (Press enter to reset)";
 		glfwSetWindowTitle(window, winner.c_str());
 	}
-	if (keys[5] == 1) {
+	if (keys[4] == 1) {
 		score[0] = 0;
 		score[1] = 0;
 		reset(PlayerSide::RIGHT);
@@ -160,7 +161,7 @@ void Game::keyCallback(GLFWwindow* window, int key, int scancode, int action, in
 			keys[3] = action;
 			break;
 		case GLFW_KEY_ENTER: // Check for Enter key
-			keys[5] = action;
+			keys[4] = action;
 			break;
 		case GLFW_KEY_ESCAPE:
 			glfwSetWindowShouldClose(window, 1);
