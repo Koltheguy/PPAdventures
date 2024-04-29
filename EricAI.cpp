@@ -10,7 +10,7 @@ void EricAI::update() {
 }
 
 float EricAI::calculatePosition() const {
-    if (ball->velocity[0] < 0) {
+    if ((ball->velocity[0] > 0 && playerSide < 0) || (ball->velocity[0] < 0 && playerSide > 0)) {
         float timeToIntersect = (location - ball->location[0]) / ball->velocity[0];
         float estimatedY = ball->location[1] + timeToIntersect * ball->velocity[1];
 
