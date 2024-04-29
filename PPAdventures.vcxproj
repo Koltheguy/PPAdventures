@@ -151,7 +151,6 @@
     <ClCompile Include="DonAi.cpp" />
     <ClCompile Include="EricAI.cpp" />
     <ClCompile Include="game.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="kolAi.cpp" />
     <ClCompile Include="main.cpp" />

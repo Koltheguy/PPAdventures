@@ -3,7 +3,7 @@
 
 class GameObject {
 public:
-    virtual ~GameObject() {} 
+    virtual ~GameObject() {}
 
     virtual void draw() = 0;
     virtual void render() = 0;
