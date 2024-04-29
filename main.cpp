@@ -97,9 +97,14 @@ int main()
 	// Delete the now useless Vertex and Fragment Shader objects
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+	int limit;
+	std::string player;
+	std::cout << "Input Limit: ";
+	std::cin >> limit;
+	std::cout << "Input Competition: ";
+	std::cin >> player;
 
-
-	Game game("User", "DonAi");
+	Game game("User", player,limit);
 
 	// Handles key presses
 	glfwSetKeyCallback(window, game.getKeyCallback);

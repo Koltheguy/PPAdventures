@@ -5,20 +5,31 @@
 #include "player.h"
 #include "ball.h"
 
+enum GameState {
+	GAME_ACTIVE,
+	GAME_WIN
+};
+
 class Game
 {
 
 public:
-	Game(std::string player1Type, std::string player2Type);
+	Game(std::string player1Type, std::string player2Type, int limit);
 	~Game();
 	void MainLoop(GLFWwindow* window);
 	int score[2];
-
+	void State_change(GameState newState) { State = newState; }
 	static void getKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static bool getKey(int keyI);
 	GLuint gameVAO, gameVBO;
 	GLfloat gameVertices[100];
+
+	int limit = 5;
+	void renderGame(GLFWwindow* window);
+	void renderWin(GLFWwindow* window);
 	void render(PlayerSide side, int score);
+
+
 	void draw(PlayerSide side, int score);
 	void zeroVertices(float xspacing, float yspacing);
 	void oneVertices(float xspacing, float yspacing);
@@ -41,8 +52,9 @@ protected:
 
 private:
 	void reset(PlayerSide sideWon);
+	GameState State = GameState::GAME_ACTIVE;
 	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-	static bool keys[4]; //{W, S, UP, DOWN}
+	static bool keys[5]; //{W, S, UP, DOWN}
 
 };
 
