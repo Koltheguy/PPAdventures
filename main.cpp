@@ -58,7 +58,7 @@ int main()
 	GLFWwindow* window = glfwCreateWindow(1000, 600, Score.c_str(), NULL, NULL);
 	if (window == NULL)
 	{
-		std::cout << "GLFW window error" << std::endl;
+		std::cerr << "GLFW window error" << std::endl;
 		glfwTerminate();
 		return -1;
 	}
@@ -99,7 +99,7 @@ int main()
 	glDeleteShader(fragmentShader);
 
 
-	Game game("User", "DonAi");
+	Game game("NormalAi", "KolAi");
 
 	// Handles key presses
 	glfwSetKeyCallback(window, game.getKeyCallback);
