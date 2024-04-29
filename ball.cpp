@@ -84,6 +84,7 @@ void Ball::calcVelocity(Player* player) {
 }
 
 void Ball::render() {
+	GameObject::render();
 	// This will update the new vertices of the ball to match the changing location
 	draw();
 

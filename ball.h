@@ -1,5 +1,6 @@
 #pragma once
 #include <glad/glad.h>
+#include "GameObject.h"
 
 static const float BALL_SPEED = 0.015f;
 static const float BALL_SPEED_MAX = 0.1f;
@@ -8,7 +9,7 @@ static const float BALL_MAX_BOUNCE = 1.309f; // 75 deg
 
 class Player; // Forward Declaration
 
-class Ball
+class Ball : public GameObject 
 {
 public:
 	Ball();
@@ -25,8 +26,8 @@ public:
 	void calcVelocity(Player* player);
 
 	void update();
-	void render();
-	void draw();
+	void draw() override;
+	void render() override;
 
 private:
 	Player* Player1;
