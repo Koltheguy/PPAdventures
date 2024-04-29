@@ -8,7 +8,6 @@ void DonAi::update() {
 
     if (ball->location[0] > 0.5) {
         float y_new = ball->location[1] + ball->velocity[1];
-        std::cout << y_new << "\n";
         if (y_new < (location + length) || y_new > (location - length)) {
             if (location >= y_new) {
                 moveDirection = Direction::DOWN;

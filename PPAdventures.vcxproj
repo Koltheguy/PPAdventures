@@ -163,6 +163,7 @@
     <ClInclude Include="DonAi.h" />
     <ClInclude Include="EricAI.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="kolAi.h" />
     <ClInclude Include="normalAi.h" />
     <ClInclude Include="player.h" />

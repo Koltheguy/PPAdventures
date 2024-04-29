@@ -1,28 +1,32 @@
-#include <iostream>
 #include "EricAI.h"
 #include "ball.h"
 
 void EricAI::update() {
     float targetPosition = calculatePosition();
 
-    if (targetPosition > location + (length / 2)) {
-        moveDirection = Direction::UP;
-    }
-    else if (targetPosition < location - (length / 2)) {
-        moveDirection = Direction::DOWN;
-    }
-    else {
-        moveDirection = Direction::NONE;
-    }
+    moveTowards(targetPosition);
 
     Player::update();
 }
 
 float EricAI::calculatePosition() const {
-    if (ball->velocity[0] > 0) {
-        float timeToReach = (location - ball->location[0]) / ball->velocity[0];
-        float estimatedY = ball->location[1] + timeToReach * ball->velocity[1];
-        return estimatedY;
+    if ((ball->velocity[0] > 0 && playerSide < 0) || (ball->velocity[0] < 0 && playerSide > 0)) {
+        float timeToIntersect = (location - ball->location[0]) / ball->velocity[0];
+        float estimatedY = ball->location[1] + timeToIntersect * ball->velocity[1];
+
+        return std::max(-0.5f + length / 2, std::min(0.5f - length / 2, estimatedY));
     }
-    return 0.0f;
+    return location;
+}
+
+void EricAI::moveTowards(float targetPosition) {
+    if (targetPosition > location) {
+        moveDirection = Direction::UP;
+    }
+    else if (targetPosition < location) {
+        moveDirection = Direction::DOWN;
+    }
+    else {
+        moveDirection = Direction::NONE;
+    }
 }

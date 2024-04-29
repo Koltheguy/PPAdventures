@@ -2,6 +2,7 @@
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glad/glad.h>
+#include "GameObject.h"
 
 static const float PLAYER_DISTANCE = 0.95f;
 static const float PLAYER_SPEED = 0.01f;
@@ -19,7 +20,7 @@ enum PlayerSide {
 	RIGHT = 1,
 };
 
-class Player
+class Player : GameObject
 {
 public:
 	Player(std::string playerType, PlayerSide playerSide, std::string name, glm::vec3 color);
@@ -41,8 +42,8 @@ public:
 
 	void handleKeyPress(bool isUp, bool isDown);
 	virtual void update();
-	void draw();
-	void render();
+	void draw() override;
+	void render() override;
 
 	void setBall(Ball* b) { ball = b; }
 	void setOtherPlayer(Player* p) { OtherPlayer = p; }
