@@ -4,6 +4,7 @@
 #include "normalAi.h"
 #include "kolAi.h"
 #include "DonAi.h"
+#include "EricAI.h"
 
 class PlayerFactory
 {
@@ -18,6 +19,8 @@ public:
             return new KolAi(playerSide, name, color);
         if (playerType == "DonAi")
             return new DonAi(playerSide, name, color);
+        if (playerType == "EricAI")
+            return new EricAI(playerSide, name, color);
         return new Player(playerType, playerSide, name, color);
     }
 };
