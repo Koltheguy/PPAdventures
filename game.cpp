@@ -73,8 +73,6 @@ void Game::renderGame(GLFWwindow* window) {
 		Player1->handleKeyPress(keys[0], keys[1]);
 	if (Player2->isUser)
 		Player2->handleKeyPress(keys[2], keys[3]);
-	/*render(RIGHT, score[1]);
-	render(LEFT, score[0]);*/
 	Player1->update();
 	Player2->update();
 	ball.update();
@@ -89,7 +87,6 @@ void Game::renderGame(GLFWwindow* window) {
 	}
 	if (score[0] == limit || score[1] == limit) {
 		State_change(GAME_WIN);
-
 	}
 }
 
@@ -103,10 +100,9 @@ void Game::renderWin(GLFWwindow* window) {
 		glfwSetWindowTitle(window, winner.c_str());
 	}
 	if (keys[4] == 1) {
+		reset(PlayerSide::RIGHT);
 		score[0] = 0;
 		score[1] = 0;
-		reset(PlayerSide::RIGHT);
-		reset(PlayerSide::LEFT);
 		State_change(GAME_ACTIVE);
 	}
 }
@@ -128,10 +124,6 @@ void Game::reset(PlayerSide sideWon) {
 		ball.velocity[0] = BALL_SPEED;
 		break;
 	}
-	//std::cout << Player1->location << " " <<
-	//	Player2->location << " " <<
-	//	ball.location[0] << "," << ball.location[1] <<
-	//	std::endl;
 }
 
 bool Game::getKey(int keyI) {

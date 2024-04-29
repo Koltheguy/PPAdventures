@@ -102,12 +102,13 @@ int main()
 	std::string player2;
 	std::cout << "Input Limit: ";
 	std::cin >> limit;
-	std::cout << "Input player1: ";
+	std::cout << "Player Options (Default User): User, SimpleAi, NormalAi, KolAi, DonAi, EricAi" << std::endl;
+	std::cout << "Input Player 1: ";
 	std::cin >> player1;
-	std::cout << "Input player2: ";
+	std::cout << "Input Player 2: ";
 	std::cin >> player2;
 
-	Game game(player1, player2,limit);
+	Game game(player1, player2, limit);
 
 	// Handles key presses
 	glfwSetKeyCallback(window, game.getKeyCallback);

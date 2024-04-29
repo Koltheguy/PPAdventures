@@ -19,8 +19,8 @@ public:
             return new KolAi(playerSide, name, color);
         if (playerType == "DonAi")
             return new DonAi(playerSide, name, color);
-        if (playerType == "EricAI")
+        if (playerType == "EricAi")
             return new EricAI(playerSide, name, color);
-        return new Player(playerType, playerSide, name, color);
+        return new Player("User", playerSide, name, color);
     }
 };
